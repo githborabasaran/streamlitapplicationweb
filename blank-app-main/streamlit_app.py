@@ -102,7 +102,7 @@ page = st.radio("Navigate to Model Explanations:", ['Model Performance', 'Logist
 # The page condition
 if page == 'Model Performance':
     # ✅ Use hardcoded file path
-    file_path = '/workspaces/streamlitapplicationweb/blank-app-main/bank-additional.csv'
+    file_path = 'blank-app-main/bank-additional.csv'
 
 
     if os.path.exists(file_path):
@@ -224,6 +224,7 @@ if page == 'Model Performance':
     
     else:
         st.error(f"🚫 File not found at: {file_path}")
+        results = {}  # Optional: prevent NameError if you use results outside later
 
 elif page == 'Logistic Regression':
     st.write("""
