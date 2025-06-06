@@ -13,8 +13,7 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.neural_network import MLPClassifier
 from sklearn.feature_selection import RFE
 import os
-
-from imblearn.under_sampling import RandomUnderSampler  # Import RandomUnderSampler
+from imblearn.under_sampling import RandomUnderSampler
 import joblib
 from sklearn.metrics import accuracy_score, classification_report, roc_auc_score, confusion_matrix, roc_curve, auc
 
@@ -102,8 +101,7 @@ page = st.radio("Navigate to Model Explanations:", ['Model Performance', 'Logist
 # The page condition
 if page == 'Model Performance':
     # ✅ Use hardcoded file path
-    file_path = 'blank-app-main/bank-additional.csv'
-
+    file_path = 'bank-additional.csv'
 
     if os.path.exists(file_path):
         df = pd.read_csv(file_path, sep=';', quotechar='"')
@@ -130,10 +128,10 @@ if page == 'Model Performance':
 
             # Split the data into training and test sets
             X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
-
-            # Apply random under-sampling
-            under_sampler = RandomUnderSampler(random_state=42)
+            under_sampler = RandomUnderSampler(random_state = 42)
             X_train_res, y_train_res = under_sampler.fit_resample(X_train, y_train)
+
+          
 
             # Create a pipeline for preprocessing
             pipeline = Pipeline([
@@ -143,6 +141,9 @@ if page == 'Model Performance':
             # Preprocess the training and test data
             X_train_preprocessed = pipeline.fit_transform(X_train_res)
             X_test_preprocessed = pipeline.transform(X_test)
+
+              # Apply random under-sampling
+ 
 
             # Extract feature names after preprocessing
             feature_names = []
@@ -224,7 +225,6 @@ if page == 'Model Performance':
     
     else:
         st.error(f"🚫 File not found at: {file_path}")
-        results = {}  # Optional: prevent NameError if you use results outside later
 
 elif page == 'Logistic Regression':
     st.write("""
@@ -386,3 +386,5 @@ elif credit_score >= 400:
     st.warning("🧡 Fair credit score.")
 else:
     st.error("❤️ Poor credit score.")
+
+
